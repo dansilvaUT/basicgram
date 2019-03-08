@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import {} from "./../ducks/header_reducer";
+// import axios from "axios";
+// import { connect } from "react-redux";
 
 class Search extends Component {
   constructor(props) {
