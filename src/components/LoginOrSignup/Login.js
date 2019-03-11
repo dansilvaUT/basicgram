@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { updateUser } from "../../ducks/auth_reducer";
+import { updateUser } from "../../ducks/reducers/auth_reducer";
 import { Link } from "react-router-dom";
 
 class Login extends Component {
@@ -57,10 +57,12 @@ class Login extends Component {
     return (
       <div>
         <input
+          placeholder="email"
           value={email}
           onChange={e => this.handleChange("email", e.target.value)}
         />
         <input
+          placeholder="password"
           value={password}
           onChange={e => this.handleChange("password", e.target.value)}
         />

@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import SignOutButton from "./../Buttons/SignOutButton";
 
 class HomeHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     const {
@@ -13,10 +13,24 @@ class HomeHeader extends Component {
       first_name,
       last_name,
       profile_pic
-    } = this.props.reduxState;
+    } = this.props.currentUser;
     return (
-      <div>
-        <img src={profile_pic} width="25px" height="25px" />
+      <div
+        className="headers"
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center"
+        }}
+      >
+        <img
+          alt="profile pic"
+          src={profile_pic}
+          width="15%"
+          height="75%"
+          className="profile_pic"
+          border="2"
+        />
         <p>
           {username}, {first_name}, {last_name}
         </p>
@@ -28,7 +42,7 @@ class HomeHeader extends Component {
 
 const mapStateToProps = reduxState => {
   return {
-    reduxState
+    currentUser: reduxState.auth_reducer
   };
 };
 

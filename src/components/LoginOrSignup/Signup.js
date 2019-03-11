@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { updateUser } from "./../../ducks/auth_reducer";
+import { updateUser } from "./../../ducks//reducers/auth_reducer";
 import { Link } from "react-router-dom";
 
 class Signup extends Component {
@@ -40,7 +40,7 @@ class Signup extends Component {
   };
 
   checkProfilePic = async () => {
-    if (this.state.profile_pic == "") {
+    if (this.state.profile_pic === "") {
       await this.setState({
         profile_pic: `https://robohash.org/${this.state.email}`
       });
@@ -66,7 +66,7 @@ class Signup extends Component {
 
     try {
       console.log("hit try", user);
-      let res = await axios.post("/auth/register", user);
+      await axios.post("/auth/register", user);
       this.props.history.push("/home");
     } catch (err) {
       alert("Email taken, choose a unique email");
@@ -81,7 +81,6 @@ class Signup extends Component {
 
   render() {
     const {
-      id,
       email,
       username,
       password,
@@ -95,8 +94,15 @@ class Signup extends Component {
     } = this.state;
     return (
       <div>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: "center"  }}>
-        <Link to="/">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Link to="/">
             <button>Go to Login</button>
           </Link>
           <input
@@ -160,7 +166,7 @@ class Signup extends Component {
 
 const mapStateToProps = reduxState => {
   return {
-    id: reduxState.id
+    id: reduxState.auth_reducer.id
   };
 };
 
