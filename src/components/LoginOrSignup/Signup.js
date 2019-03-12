@@ -8,7 +8,6 @@ class Signup extends Component {
   constructor(props) {
     super();
     this.state = {
-      id: 0,
       email: "",
       password: "",
       username: "",
@@ -50,7 +49,6 @@ class Signup extends Component {
   register = async () => {
     await this.checkProfilePic();
 
-    console.log(this.state.profile_pic);
     let user = {
       email: this.state.email,
       password: this.state.password,
@@ -65,7 +63,6 @@ class Signup extends Component {
     };
 
     try {
-      console.log("hit try", user);
       await axios.post("/auth/register", user);
       this.props.history.push("/home");
     } catch (err) {

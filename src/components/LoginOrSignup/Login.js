@@ -72,7 +72,7 @@ class Login extends Component {
             onChange={e => this.handleChange("password", e.target.value)}
           />
           <button onClick={this.login}>Login</button>
-          <Link to="/signup">
+          <Link to="/signup/step1">
             <button>Go to Sign Up</button>
           </Link>
         </div>

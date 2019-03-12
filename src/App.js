@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import routes from "./routes";
-import { HashRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import Nav from "./components/Nav/Nav";
 import "./App.css";
-import store from "./ducks/store";
+import { withRouter } from "react-router-dom";
 // import { store, persistor } from "./ducks/store";
 // import { PersistGate } from "redux-persist/integration/react";
 
@@ -42,19 +40,29 @@ library.add(
 
 class App extends Component {
   render() {
+    console.log(this.props);
     return (
-      <Provider store={store}>
-        {/* <PersistGate persistor={persistor} loading={null}> */}
-        <HashRouter>
-          <div className="App">
-            {routes}
-            <Nav />
-          </div>
-        </HashRouter>
-        {/* </PersistGate> */}
-      </Provider>
+      <div className="App">
+        {routes}
+        {this.props.location.pathname === "/signup/step1" ||
+        this.props.location.pathname === "/signup/step2" ||
+        this.props.location.pathname === "/signup/step3" ||
+        this.props.location.pathname === "/signup/step4" ||
+        this.props.location.pathname === "/" ? (
+          <div />
+        ) : (
+          <Nav />
+        )}
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
+
+{
+  /* <PersistGate persistor={persistor} loading={null}> */
+}
+{
+  /* </PersistGate> */
+}

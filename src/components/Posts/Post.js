@@ -8,7 +8,13 @@ class Post extends Component {
     const { img_url, post_id, username, profile_pic } = this.props.post;
 
     return (
-      <div>
+      <div
+        style={{
+          borderBottomWidth: "1px",
+          borderBottomColor: "black",
+          borderBottomStyle: "ridge"
+        }}
+      >
         <div className="post-header-content">
           <div
             style={{ display: "flex", alignItems: "center", height: "40px" }}

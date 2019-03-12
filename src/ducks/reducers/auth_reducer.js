@@ -23,7 +23,8 @@ export function updateUser(user) {
 
 export function clearUser() {
   return {
-    type: CLEAR_USER
+    type: CLEAR_USER,
+    payload: initialState
   };
 }
 
@@ -58,7 +59,7 @@ export default function reducer(state = initialState, action) {
         user_age
       };
     case CLEAR_USER:
-      return { ...state, ...initialState };
+      return { ...state, ...payload };
     default:
       return state;
   }
