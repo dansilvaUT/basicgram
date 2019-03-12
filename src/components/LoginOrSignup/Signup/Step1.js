@@ -18,7 +18,14 @@ class Step1 extends Component {
       <div>
         <input />
         <input />
-        <button>Next Button</button>
+        <button
+          onClick={_ => {
+            // this.props.updateLocation(this.state);
+            this.props.history.push("/signup/step2");
+          }}
+        >
+          Next Step
+        </button>
       </div>
     );
   }

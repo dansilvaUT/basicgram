@@ -27,7 +27,14 @@ class Step3 extends Component {
         <input />
         <input />
         <button>Go Back Button</button>
-        <button>Next Button</button>
+        <button
+          onClick={_ => {
+            // this.props.updateLocation(this.state);
+            this.props.history.push("/signup/step4");
+          }}
+        >
+          Next Step
+        </button>
         <button>Skip</button>
       </div>
     );

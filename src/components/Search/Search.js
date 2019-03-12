@@ -27,7 +27,12 @@ class Search extends Component {
   render() {
     const { id } = this.props;
     if (!id) return <Redirect to="/" />;
-    return <div>Search</div>;
+    return (
+      <div>
+        <div className="headers"> </div>
+        <div className="content">Search</div>
+      </div>
+    );
   }
 }
 

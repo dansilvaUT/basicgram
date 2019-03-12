@@ -54,13 +54,15 @@ class Upload extends Component {
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        Upload
-        <input
-          className="input1"
-          value={img_url}
-          onChange={e => this.handleChange("img_url", e.target.value)}
-        />
-        <button onClick={this.handleSubmitPost}>Submit Post</button>
+        <div className="headers">Upload</div>
+        <div className="content">
+          <input
+            className="input1"
+            value={img_url}
+            onChange={e => this.handleChange("img_url", e.target.value)}
+          />
+          <button onClick={this.handleSubmitPost}>Submit Post</button>
+        </div>
       </div>
     );
   }

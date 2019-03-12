@@ -19,8 +19,14 @@ class Post extends Component {
           <div
             style={{ display: "flex", alignItems: "center", height: "40px" }}
           >
-            <div className="post-profile-pic">
-              <img padding="0" width="90%" height="90%" src={profile_pic} />
+            <div className="post-profile-pic-container">
+              <img
+                className="post-profile-pic"
+                padding="0"
+                width="90%"
+                height="90%"
+                src={profile_pic}
+              />
             </div>
             {username}
           </div>

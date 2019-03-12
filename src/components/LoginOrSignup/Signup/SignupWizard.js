@@ -43,11 +43,11 @@ class SignupWizard extends Component {
           >
             Cancel
           </button>
+          <Route path="/signup/step1" component={Step1} />
+          <Route path="/signup/step2" component={Step2} />
+          <Route path="/signup/step3" component={Step3} />
+          <Route path="/signup/step4" component={Step4} />
         </div>
-        <Route path="/signup/step1" component={Step1} />
-        <Route path="/signup/step2" component={Step2} />
-        <Route path="/signup/step3" component={Step3} />
-        <Route path="/signup/step4" component={Step4} />
       </div>
     );
   }

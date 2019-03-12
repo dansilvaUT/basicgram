@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import insta_icon from "../../../src/insta_icon.png";
 
 class LoginOrSignupHeader extends Component {
@@ -15,11 +16,13 @@ class LoginOrSignupHeader extends Component {
           src={insta_icon}
           width="15%"
           className="insta_icon"
+          onClick={() => this.props.history.push("/home")}
         />
+
         <h3>Basicgram</h3>
       </div>
     );
   }
 }
 
-export default LoginOrSignupHeader;
+export default withRouter(LoginOrSignupHeader);

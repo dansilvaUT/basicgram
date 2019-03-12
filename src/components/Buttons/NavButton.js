@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withRouter } from "react-router-dom";
 
 // faHeart,
 // faComment,
@@ -16,10 +17,14 @@ class NavButton extends Component {
   render() {
     return (
       <button>
-        <FontAwesomeIcon icon={this.props.name} size="3x" color="black" />
+        <FontAwesomeIcon
+          icon={this.props.name}
+          size="3x"
+          color={this.props.color}
+        />
       </button>
     );
   }
 }
 
-export default NavButton;
+export default withRouter(NavButton);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import routes from "./routes";
 import Nav from "./components/Nav/Nav";
+import LoginSignupFooter from "./components/LoginOrSignup/LoginSignupFooter";
 import "./App.css";
 import { withRouter } from "react-router-dom";
 // import { store, persistor } from "./ducks/store";
@@ -40,16 +41,12 @@ library.add(
 
 class App extends Component {
   render() {
-    console.log(this.props);
     return (
       <div className="App">
         {routes}
-        {this.props.location.pathname === "/signup/step1" ||
-        this.props.location.pathname === "/signup/step2" ||
-        this.props.location.pathname === "/signup/step3" ||
-        this.props.location.pathname === "/signup/step4" ||
+        {this.props.location.pathname.includes("/signup") ||
         this.props.location.pathname === "/" ? (
-          <div />
+          <LoginSignupFooter />
         ) : (
           <Nav />
         )}

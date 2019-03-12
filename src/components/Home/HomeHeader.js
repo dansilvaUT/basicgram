@@ -18,16 +18,19 @@ class HomeHeader extends Component {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-between",
           alignItems: "center"
         }}
       >
-        <img
-          alt="profile pic"
-          src={profile_pic}
-          width="15%"
-          className="profile_pic"
-        />
+        <div className="header-profile-pic-container">
+          <img
+            className="header-profile-pic"
+            padding="0"
+            width="90%"
+            height="90%"
+            src={profile_pic}
+          />
+        </div>
         <h3>Basicgram</h3>
         <SignOutButton />
       </div>

@@ -1,21 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import NavButton from "./../Buttons/NavButton";
-
-// faHeart,
-// faComment,
-// faUser,
-// faComments,
-// faSearch,
-// faTrash,
-// faUserEdit,
-// faPen,
-// faHome,
-// faFileUpload
 
 class Nav extends Component {
   constructor(props) {
-    super();
+    super(props);
   }
 
   render() {
@@ -25,23 +15,43 @@ class Nav extends Component {
         style={{ display: "flex", justifyContent: "space-around" }}
       >
         <Link to="/home">
-          <NavButton name="home" />
+          {this.props.location.pathname.includes("/home") ? (
+            <NavButton name="home" color="black" />
+          ) : (
+            <NavButton name="home" color="#686868" />
+          )}
         </Link>
         <Link to="/search">
-          <NavButton name="search" />
+          {this.props.location.pathname.includes("/search") ? (
+            <NavButton name="search" color="black" />
+          ) : (
+            <NavButton name="search" color="#686868" />
+          )}
         </Link>
         <Link to="/upload">
-          <NavButton name="file-upload" />
+          {this.props.location.pathname === "/upload" ? (
+            <NavButton name="file-upload" color="black" />
+          ) : (
+            <NavButton name="file-upload" color="#686868" />
+          )}
         </Link>
         <Link to="/chat">
-          <NavButton name="comments" />
+          {this.props.location.pathname.includes("/chat") ? (
+            <NavButton name="comments" color="black" />
+          ) : (
+            <NavButton name="comments" color="#686868" />
+          )}
         </Link>
         <Link to="/profile">
-          <NavButton name="user" />
+          {this.props.location.pathname.includes("/profile") ? (
+            <NavButton name="user" color="black" />
+          ) : (
+            <NavButton name="user" color="#686868" />
+          )}
         </Link>
       </div>
     );
   }
 }
 
-export default Nav;
+export default withRouter(Nav);

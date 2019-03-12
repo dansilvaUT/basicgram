@@ -27,7 +27,12 @@ class Chat extends Component {
   render() {
     const { id } = this.props;
     if (!id) return <Redirect to="/" />;
-    return <div>Chat</div>;
+    return (
+      <div>
+        <div className="headers">Chat</div>
+        <div className="content">Content</div>
+      </div>
+    );
   }
 }
 

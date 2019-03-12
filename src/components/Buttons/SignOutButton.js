@@ -18,7 +18,7 @@ class SignOutButton extends Component {
 
   render() {
     return (
-      <div>
+      <div className="signout-button">
         <button onClick={this.logout}>
           <FontAwesomeIcon icon="sign-out-alt" size="3x" />
         </button>

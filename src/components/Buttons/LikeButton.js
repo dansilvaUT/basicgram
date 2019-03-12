@@ -15,27 +15,23 @@ class LikeButton extends Component {
     };
   }
 
-  changeColor = () => {
+  handleClick = () => {
     this.setState({
-      clicked: !clicked
+      clicked: !this.state.clicked
     });
-
-    if ((this.state.clicked = false)) {
-      this.setState({
-        color: "black"
-      });
-    } else {
-      this.setState({
-        color: "#fb3958"
-      });
-    }
   };
 
   render() {
     return (
-      <button onClick={this.changeColor}>
-        <FontAwesomeIcon icon={faHeart} size="2x" color={this.state.color} />
-      </button>
+      <div>
+        <button onClick={this.handleClick}>
+          {this.state.clicked === false ? (
+            <FontAwesomeIcon icon={faHeart} size="2x" color="black" />
+          ) : (
+            <FontAwesomeIcon icon="heart" size="2x" color="#fb3958" />
+          )}
+        </button>
+      </div>
     );
   }
 }

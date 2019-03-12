@@ -30,8 +30,8 @@ class Profile extends Component {
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        <SignOutButton />
-        Profile
+        <div className="headers"> </div>
+        <div className="content">Profile</div>
       </div>
     );
   }
