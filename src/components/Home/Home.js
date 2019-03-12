@@ -55,11 +55,11 @@ class Home extends Component {
     // }
     return (
       <div>
-        {/* {this.state.loading ? (
+        {/* { (
           <Spinner name="ball-scale-ripple-multiple" color="fuchsia" />
         ) : ( */}
         <div>
-          <div>
+          <div className="headers">
             <HomeHeader />
           </div>
           <div className="content">

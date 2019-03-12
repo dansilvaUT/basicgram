@@ -16,7 +16,6 @@ class HomeHeader extends Component {
     } = this.props.currentUser;
     return (
       <div
-        className="headers"
         style={{
           display: "flex",
           justifyContent: "space-around",
@@ -27,13 +26,9 @@ class HomeHeader extends Component {
           alt="profile pic"
           src={profile_pic}
           width="15%"
-          height="75%"
           className="profile_pic"
-          border="2"
         />
-        <p>
-          {username}, {first_name}, {last_name}
-        </p>
+        <h3>Basicgram</h3>
         <SignOutButton />
       </div>
     );

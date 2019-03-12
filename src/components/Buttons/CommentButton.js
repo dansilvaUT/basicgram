@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class LikeButton extends Component {
+class CommentButton extends Component {
   render() {
     return (
       <button>
-        <FontAwesomeIcon icon="heart" size="2x" color="lightgrey" />
+        <FontAwesomeIcon icon="comment" size="2x" color="lightgrey" />
       </button>
     );
   }
 }
 
-export default LikeButton;
+export default CommentButton;

@@ -6,6 +6,15 @@ module.exports = {
       res.status(200).send(resp);
     });
   },
+  getUserInfo: (req, res) => {
+    const db = req.app.get("db");
+    console.log(req.body);
+    const { post_id } = req.body;
+
+    db.posts.get_user_info({ post_id }).then(resp => {
+      res.status(200).send(resp);
+    });
+  },
   createPost: (req, res) => {
     const db = req.app.get("db");
     const { user_id, username } = req.session.user;

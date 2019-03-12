@@ -55,6 +55,7 @@ app.delete("/auth/delete", ac.deleteUser);
 
 //POST ENDPOINTS
 app.get("/api/posts", pc.getPosts);
+app.post("/api/postuserinfo", pc.getUserInfo);
 app.post("/api/post", pc.createPost);
 // app.put("api/post/:id", pc.editPost);
 app.delete("/api/post/:id", pc.deletePost);

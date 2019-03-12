@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Post from "./Post";
+import Spinner from "react-spinkit";
 
 class PostList extends Component {
   // constructor(props) {
@@ -8,14 +9,27 @@ class PostList extends Component {
   // }
 
   render() {
-    const mappedPosts = this.props.posts.map(post => {
-      return <Post key={post.post_id} post={post} height="50vh" />;
-    });
-    return (
-      <div>
-        <div>{mappedPosts}</div>
-      </div>
-    );
+    if (this.props.posts.length) {
+      const mappedPosts = this.props.posts.map(post => {
+        return <Post key={post.post_id} post={post} height="50vh" />;
+      });
+      return <div>{mappedPosts}</div>;
+    } else
+      return (
+        <div
+          className="post-list-container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            height: "80vh"
+          }}
+        >
+          <Spinner className="loader" name="ball-grid-pulse" />
+        </div>
+      );
   }
 }
 
