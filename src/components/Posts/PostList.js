@@ -11,7 +11,14 @@ class PostList extends Component {
   render() {
     if (this.props.posts.length) {
       const mappedPosts = this.props.posts.map(post => {
-        return <Post key={post.post_id} post={post} height="50vh" />;
+        return (
+          <Post
+            key={post.post_id}
+            post={post}
+            id={this.props.id}
+            height="50vh"
+          />
+        );
       });
       return <div>{mappedPosts}</div>;
     } else
@@ -35,6 +42,7 @@ class PostList extends Component {
 
 const mapStateToProps = reduxState => {
   return {
+    id: reduxState.auth_reducer.id,
     posts: reduxState.post_reducer.posts
   };
 };

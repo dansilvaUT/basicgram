@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
-import { clearUser } from "./../../../ducks/reducers/auth_reducer";
+import {
+  updateUserInfo3,
+  clearUser
+} from "./../../../ducks/reducers/register_reducer";
 
 class Step3 extends Component {
   constructor(props) {
@@ -12,6 +16,12 @@ class Step3 extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      profile_pic: this.props.profile_pic
+    });
+  }
+
   checkProfilePic = async () => {
     if (this.state.profile_pic === "") {
       await this.setState({
@@ -20,22 +30,67 @@ class Step3 extends Component {
     }
   };
 
+  handleChange(prop, val) {
+    this.setState({
+      [prop]: val
+    });
+  }
+
   render() {
+    const { profile_pic } = this.state;
     return (
-      <div>
-        <input />
-        <input />
-        <input />
-        <button>Go Back Button</button>
-        <button
-          onClick={_ => {
-            // this.props.updateLocation(this.state);
-            this.props.history.push("/signup/step4");
-          }}
-        >
-          Next Step
-        </button>
-        <button>Skip</button>
+      <div className="content">
+        <div className="signup-content-outer-container">
+          <h3
+            style={{
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              color: "white"
+            }}
+          >
+            Choose a profile pic
+          </h3>
+          <div className="signup-content-inner-container">
+            <div>
+              <input
+                className="input-box"
+                placeholder="profile_pic url"
+                value={profile_pic}
+                onChange={e => this.handleChange("profile_pic", e.target.value)}
+              />{" "}
+            </div>
+            <div>
+              <button
+                onClick={_ => {
+                  this.checkProfilePic();
+                  this.props.updateUserInfo3(this.state);
+                  this.props.history.push("/signup/step2");
+                }}
+              >
+                Go Back
+              </button>{" "}
+              <button
+                onClick={_ => {
+                  this.checkProfilePic();
+                  this.props.updateUserInfo3(this.state);
+                  this.props.history.push("/signup/step4");
+                }}
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+          <button
+            style={{ color: "white" }}
+            className="cancel-button"
+            onClick={() => {
+              this.props.clearUser();
+              this.props.history.push("/");
+            }}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     );
   }
@@ -43,12 +98,13 @@ class Step3 extends Component {
 
 const mapStateToProps = reduxState => {
   return {
-    reduxState
+    profile_pic: reduxState.register_reducer.profile_pic
   };
 };
 
 const mapDispatchToProps = {
-  //Pass in function that updates relevant values
+  updateUserInfo3,
+  clearUser //Pass in function that updates relevant values
 };
 
 export default connect(

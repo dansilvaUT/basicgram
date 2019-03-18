@@ -43,21 +43,21 @@ module.exports = {
 
   deletePost: (req, res) => {
     const db = req.app.get("db");
-    const user_id = ({ id } = req.session.user);
-    const post_id = ({ id } = req.params);
+    const { id: user_id } = req.session.user;
+    const { id: post_id } = req.params;
 
-    db.posts.delete_post([post_id, user_id]).then(resp => {
+    db.posts.delete_post({ post_id, user_id }).then(resp => {
+      res.status(200).send(resp);
+    });
+  },
+
+  editPostCaption: (req, res) => {
+    const db = req.app.get("db");
+    const { caption } = req.body;
+    const { id: post_id } = req.params;
+
+    db.posts.edit_post_caption({ post_id, caption }).then(resp => {
       res.status(200).send(resp);
     });
   }
-
-  //   editPost: (req, res) => {
-  //     const db = req.app.get("db");
-  //     const post_id = ({ id } = req.params);
-  //     const user_id = ({ id } = req.session.user);
-
-  //     db.posts.edit_post([user_id, post_id]).then(resp => {
-  //       res.status(200).send(resp);
-  //     });
-  //   }
 };

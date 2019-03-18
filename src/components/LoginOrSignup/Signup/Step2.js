@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
-import { clearUser } from "./../../../ducks/reducers/auth_reducer";
+import {
+  updateUserInfo2,
+  clearUser
+} from "./../../../ducks/reducers/register_reducer";
 
 class Step2 extends Component {
   constructor(props) {
@@ -15,22 +19,95 @@ class Step2 extends Component {
     };
   }
 
+  // async componentDidMount() {
+  //   await this.setState({
+  //     username: this.props.username,
+  //     first_name: this.props.first_name,
+  //     last_name: this.props.last_name,
+  //     age: this.props.user_age
+  //   });
+  // }
+
+  handleChange(prop, val) {
+    this.setState({
+      [prop]: val
+    });
+  }
+
   render() {
+    console.log(this.props);
+    const { username, first_name, last_name, age } = this.state;
     return (
-      <div>
-        <input />
-        <input />
-        <input />
-        <button>Go Back Button</button>
-        <button
-          onClick={_ => {
-            // this.props.updateLocation(this.state);
-            this.props.history.push("/signup/step3");
-          }}
-        >
-          Next Step
-        </button>
-        <button>Skip</button>
+      <div className="content">
+        <div className="signup-content-outer-container">
+          <h3
+            style={{
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              marginBottom: "10%",
+              color: "white"
+            }}
+          >
+            Enter your info
+          </h3>
+          <div className="signup-content-inner-container">
+            <div>
+              <input
+                className="input-box"
+                placeholder="instagram username"
+                value={username}
+                onChange={e => this.handleChange("username", e.target.value)}
+              />{" "}
+            </div>
+            <div>
+              <input
+                className="input-box"
+                style={{ marginTop: "5%" }}
+                placeholder="your first name"
+                value={first_name}
+                onChange={e => this.handleChange("first_name", e.target.value)}
+              />{" "}
+            </div>
+            <div>
+              <input
+                className="input-box"
+                style={{ marginTop: "5%" }}
+                placeholder="your last name"
+                value={last_name}
+                onChange={e => this.handleChange("last_name", e.target.value)}
+              />{" "}
+            </div>
+            <div>
+              <input
+                className="input-box"
+                style={{ marginTop: "5%" }}
+                placeholder="your age"
+                value={age}
+                onChange={e => this.handleChange("age", e.target.value)}
+              />{" "}
+            </div>
+            <div style={{ marginTop: "10%" }}>
+              <button
+                onClick={_ => {
+                  this.props.updateUserInfo2(this.state);
+                  this.props.history.push("/signup/step3");
+                }}
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+          <button
+            style={{ color: "white" }}
+            className="cancel-button"
+            onClick={() => {
+              this.props.clearUser();
+              this.props.history.push("/");
+            }}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     );
   }
@@ -38,12 +115,16 @@ class Step2 extends Component {
 
 const mapStateToProps = reduxState => {
   return {
-    reduxState
+    username: reduxState.register_reducer.username,
+    first_name: reduxState.register_reducer.first_name,
+    last_name: reduxState.register_reducer.last_name,
+    user_age: reduxState.register_reducer.user_age
   };
 };
 
 const mapDispatchToProps = {
-  //Pass in function that updates relevant values
+  updateUserInfo2,
+  clearUser
 };
 
 export default connect(

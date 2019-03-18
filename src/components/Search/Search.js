@@ -29,7 +29,7 @@ class Search extends Component {
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        <div className="headers"> </div>
+        <div className="headers">Search</div>
         <div className="content">Search</div>
       </div>
     );

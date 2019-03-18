@@ -12,6 +12,7 @@ const initialState = {
 };
 
 const UPDATE_USER = "UPDATE_USER";
+
 const CLEAR_USER = "CLEAR_USER";
 
 export function updateUser(user) {

@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { clearUser } from "../../ducks/reducers/auth_reducer";
 import { updatePosts } from "../../ducks/reducers/post_reducer";
 import { connect } from "react-redux";
+import HomeHeader from "../Home/HomeHeader";
 
 class Upload extends Component {
   constructor(props) {
@@ -54,7 +55,9 @@ class Upload extends Component {
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        <div className="headers">Upload</div>
+        <div className="headers">
+          <HomeHeader />
+        </div>
         <div className="content">
           <input
             className="input1"

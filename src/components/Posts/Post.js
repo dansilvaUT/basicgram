@@ -2,22 +2,75 @@ import React, { Component } from "react";
 import axios from "axios";
 import LikeButton from "../Buttons/LikeButton";
 import CommentButton from "../Buttons/CommentButton";
+import DeletePostButton from "../Buttons/DeletePostButton";
+import EditCaptionButton from "../Buttons/EditCaptionButton";
+import EllipsisMenuButton from "../Buttons/EllipsisMenuButton";
+import SaveButton from "../Buttons/SaveButton";
+import { updatePosts } from "../.././ducks/reducers/post_reducer";
+import { connect } from "react-redux";
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editing: false,
+      caption: this.props.post.caption
+    };
+  }
+
+  handleChange = e => {
+    this.setState({
+      caption: e.target.value
+    });
+  };
+
+  handleEditToggle = () => {
+    this.setState({
+      editing: !this.state.editing
+    });
+  };
+
+  handleSubmitEdit = () => {
+    const { caption } = this.state;
+    const { post_id } = this.props.post;
+    axios.put(`/api/post/${post_id}`, { caption }).then(resp => {
+      this.props.updatePosts(resp.data);
+    });
+
+    this.setState({
+      editing: !this.state.editing
+    });
+  };
+
+  handleDeletePost = () => {};
+
   render() {
-    const { img_url, post_id, username, profile_pic } = this.props.post;
+    const {
+      img_url,
+      post_id,
+      username,
+      profile_pic,
+      caption
+    } = this.props.post;
 
     return (
       <div
         style={{
-          borderBottomWidth: "1px",
-          borderBottomColor: "black",
-          borderBottomStyle: "ridge"
+          marginTop: "15px"
+          // borderBottomWidth: "1px",
+          // borderBottomColor: "black",
+          // borderBottomStyle: "ridge"
         }}
       >
         <div className="post-header-content">
           <div
-            style={{ display: "flex", alignItems: "center", height: "40px" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "40px",
+              marginBottom: "3px"
+            }}
           >
             <div className="post-profile-pic-container">
               <img
@@ -28,31 +81,96 @@ class Post extends Component {
                 src={profile_pic}
               />
             </div>
-            {username}
+            <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
           </div>
 
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
+              alignContent: "center",
+              justifyContent: "center",
+              marginRight: "3%"
             }}
           >
-            <p>...</p>
+            <EllipsisMenuButton />
           </div>
         </div>
         <img alt={post_id} src={img_url} width="100%" height="300px" />
         <div
           className="post-footer-content"
-          style={{ display: "flex", alignItems: "center", height: "40px" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}
         >
-          <LikeButton />
-          <CommentButton />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div>
+              <LikeButton />
+            </div>
+            <div>
+              <CommentButton />
+            </div>
+          </div>
+          {this.props.post.user_id === this.props.id ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {this.state.editing === false ? (
+                <div onClick={this.handleEditToggle}>
+                  <EditCaptionButton />
+                </div>
+              ) : (
+                <div onClick={this.handleSubmitEdit}>
+                  <SaveButton />
+                </div>
+              )}
+              <div onClick={this.handleDeletePost}>
+                <DeletePostButton />
+              </div>
+            </div>
+          ) : null}
         </div>
-        <div>{username} and a comment</div>
+        <p style={{ margin: "0" }}>Likes</p>
+        {this.state.editing === true ? (
+          <div style={{ display: "flex" }}>
+            <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
+            {"  "}
+            <textarea
+              style={{
+                rows: "2",
+                marginLeft: "5px",
+                width: "80%",
+                fontSize: "1em"
+              }}
+              value={this.state.caption}
+              onChange={this.handleChange}
+            />
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
+            {"   "}
+            <div
+              style={{
+                margin: 0,
+                marginLeft: "5px",
+                width: "80%",
+                fontSize: "1em"
+              }}
+            >
+              {caption}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 }
 
-export default Post;
+const mapDispatchToProps = {
+  updatePosts
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Post);

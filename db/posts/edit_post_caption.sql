@@ -1,3 +1,7 @@
+update posts
+set caption = ${caption}
+where post_id = ${post_id};
+
 select *, u.username, u.profile_pic
 from posts p
 join users u on p.user_id = u.user_id

@@ -61,20 +61,40 @@ class Login extends Component {
           <LoginOrSignupHeader />
         </div>
         <div className="content">
-          <input
-            placeholder="email"
-            value={email}
-            onChange={e => this.handleChange("email", e.target.value)}
-          />
-          <input
-            placeholder="password"
-            value={password}
-            onChange={e => this.handleChange("password", e.target.value)}
-          />
-          <button onClick={this.login}>Login</button>
-          <Link to="/signup/step1">
-            <button>Go to Sign Up</button>
-          </Link>
+          <div className="login-content-outer-container">
+            <div className="login-content-inner-container">
+              <div>
+                <h3
+                  style={{
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    marginBottom: "10%",
+                    color: "white"
+                  }}
+                >
+                  Login
+                </h3>
+                <input
+                  className="input-box"
+                  placeholder="email"
+                  value={email}
+                  onChange={e => this.handleChange("email", e.target.value)}
+                />{" "}
+              </div>
+              <div>
+                <input
+                  className="input-box"
+                  style={{ marginTop: "5%" }}
+                  placeholder="password"
+                  type="password"
+                  value={password}
+                  onChange={e => this.handleChange("password", e.target.value)}
+                />{" "}
+              </div>
+
+              <button onClick={this.login}>Submit</button>
+            </div>
+          </div>
         </div>
       </div>
     );

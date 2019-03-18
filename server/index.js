@@ -52,10 +52,11 @@ app.post("/auth/login", ac.login);
 app.get("/api/currentuser", ac.getUser);
 app.post("/auth/logout", ac.logout);
 app.delete("/auth/delete", ac.deleteUser);
+app.post("/api/checkemail", ac.checkEmail);
 
 //POST ENDPOINTS
 app.get("/api/posts", pc.getPosts);
 app.post("/api/postuserinfo", pc.getUserInfo);
 app.post("/api/post", pc.createPost);
-// app.put("api/post/:id", pc.editPost);
+app.put("/api/post/:id", pc.editPostCaption);
 app.delete("/api/post/:id", pc.deletePost);

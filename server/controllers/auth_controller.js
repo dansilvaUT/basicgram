@@ -66,7 +66,7 @@ module.exports = {
       session.user = user;
       res.status(200).send(session.user);
     } else {
-      res.status(401);
+      res.sendStatus(401);
     }
   },
   getUser: (req, res) => {
@@ -91,5 +91,18 @@ module.exports = {
         res.sendStatus(200);
       });
     });
+  },
+  checkEmail: async (req, res) => {
+    const db = req.app.get("db");
+
+    const { email } = req.body;
+
+    let takenEmail = await db.auth.check_email({ email });
+    takenEmail = +takenEmail[0].count;
+    if (takenEmail !== 0) {
+      res.sendStatus(401);
+    } else {
+      res.sendStatus(200);
+    }
   }
 };
