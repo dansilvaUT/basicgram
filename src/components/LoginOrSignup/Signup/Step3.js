@@ -22,14 +22,6 @@ class Step3 extends Component {
     });
   }
 
-  checkProfilePic = async () => {
-    if (this.state.profile_pic === "") {
-      await this.setState({
-        profile_pic: `https://robohash.org/${this.state.email}`
-      });
-    }
-  };
-
   handleChange(prop, val) {
     this.setState({
       [prop]: val
@@ -62,7 +54,6 @@ class Step3 extends Component {
             <div>
               <button
                 onClick={_ => {
-                  this.checkProfilePic();
                   this.props.updateUserInfo3(this.state);
                   this.props.history.push("/signup/step2");
                 }}
@@ -71,7 +62,6 @@ class Step3 extends Component {
               </button>{" "}
               <button
                 onClick={_ => {
-                  this.checkProfilePic();
                   this.props.updateUserInfo3(this.state);
                   this.props.history.push("/signup/step4");
                 }}

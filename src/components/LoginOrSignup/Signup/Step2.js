@@ -19,14 +19,14 @@ class Step2 extends Component {
     };
   }
 
-  // async componentDidMount() {
-  //   await this.setState({
-  //     username: this.props.username,
-  //     first_name: this.props.first_name,
-  //     last_name: this.props.last_name,
-  //     age: this.props.user_age
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      username: this.props.username,
+      first_name: this.props.first_name,
+      last_name: this.props.last_name,
+      age: this.props.user_age
+    });
+  }
 
   handleChange(prop, val) {
     this.setState({

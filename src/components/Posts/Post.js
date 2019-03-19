@@ -43,7 +43,14 @@ class Post extends Component {
     });
   };
 
-  handleDeletePost = () => {};
+  handleDeletePost = () => {
+    const { post_id } = this.props.post;
+    const { id } = this.props;
+    console.log("hit", post_id, id);
+    axios.delete(`/api/post/${post_id}`, { id }).then(resp => {
+      this.props.updatePosts(resp.data);
+    });
+  };
 
   render() {
     const {
@@ -58,9 +65,6 @@ class Post extends Component {
       <div
         style={{
           marginTop: "15px"
-          // borderBottomWidth: "1px",
-          // borderBottomColor: "black",
-          // borderBottomStyle: "ridge"
         }}
       >
         <div className="post-header-content">
@@ -146,7 +150,13 @@ class Post extends Component {
             />
           </div>
         ) : (
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div
+            style={{
+              display: "flex",
+              overflowWrap: "break-word",
+              overflow: "scroll"
+            }}
+          >
             <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
             {"   "}
             <div
@@ -154,7 +164,8 @@ class Post extends Component {
                 margin: 0,
                 marginLeft: "5px",
                 width: "80%",
-                fontSize: "1em"
+                fontSize: "1em",
+                height: "40px"
               }}
             >
               {caption}
@@ -166,11 +177,17 @@ class Post extends Component {
   }
 }
 
+const mapStateToProps = reduxState => {
+  return {
+    id: reduxState.auth_reducer.id
+  };
+};
+
 const mapDispatchToProps = {
   updatePosts
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Post);

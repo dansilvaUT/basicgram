@@ -17,15 +17,11 @@ module.exports = {
   },
   createPost: (req, res) => {
     const db = req.app.get("db");
-    const { user_id, username } = req.session.user;
-    let { img_url } = req.body;
+    const { user_id } = req.session.user;
+    let { img_url, caption } = req.body;
     let post_privacy_level = 0;
     let post_rating = 0;
     let date_added = new Date();
-
-    // if (img_url === "") {
-    //   img_url = "https://source.unsplash.com/random/800x600";
-    // }
 
     db.posts
       .create_post([
@@ -34,7 +30,7 @@ module.exports = {
         date_added,
         post_privacy_level,
         post_rating,
-        username
+        caption
       ])
       .then(resp => {
         res.sendStatus(200);
@@ -43,8 +39,9 @@ module.exports = {
 
   deletePost: (req, res) => {
     const db = req.app.get("db");
-    const { id: user_id } = req.session.user;
+    const { user_id } = req.session.user;
     const { id: post_id } = req.params;
+    console.log("hit", post_id, user_id);
 
     db.posts.delete_post({ post_id, user_id }).then(resp => {
       res.status(200).send(resp);

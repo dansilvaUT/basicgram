@@ -19,7 +19,7 @@ class LoginOrSignupHeader extends Component {
           onClick={() => this.props.history.push("/home")}
         />
 
-        <h3>Basicgram</h3>
+        <h2>Basicgram</h2>
       </div>
     );
   }

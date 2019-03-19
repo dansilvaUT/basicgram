@@ -15,14 +15,14 @@ class HomeHeader extends Component {
         }}
       >
         <img
-          style={{ marginTop: "6px", marginLeft: "5%" }}
+          style={{ marginTop: "0px", marginLeft: "5%" }}
           alt="instagram icon"
           src={insta_icon}
           width="15%"
           onClick={() => this.props.history.push("/home")}
         />
-        <h3>Basicgram</h3>
-        <div style={{ marginTop: "6px", marginRight: "5%" }}>
+        <h2>Basicgram</h2>
+        <div style={{ marginTop: "0px", marginRight: "5%" }}>
           <SignOutButton />
         </div>
       </div>
