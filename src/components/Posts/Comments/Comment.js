@@ -13,9 +13,15 @@ class Comment extends Component {
   }
 
   render() {
-    console.log("displaying comment");
+    console.log("displaying comment", this.props.comment);
+    const { username } = this.props.comment.username;
     const { comment } = this.state;
-    return <div>{comment}</div>;
+    return (
+      <div className="comment">
+        <div>{username}</div>
+        <div className="comment-contents">{comment}</div>
+      </div>
+    );
   }
 }
 

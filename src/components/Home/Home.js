@@ -4,19 +4,18 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { clearUser } from "../../ducks/reducers/auth_reducer";
 import { updatePosts } from "../../ducks/reducers/post_reducer";
+import { clearComments } from "../../ducks/reducers/comment_reducer";
 import HomeHeader from "./HomeHeader";
 // import Spinner from "react-spinkit";
 import PostList from "../Posts/PostList";
 import CommentList from "../Posts/Comments/CommentList";
 
 class Home extends Component {
-  // constructor(props) {
-  //   super(props);
+  constructor(props) {
+    super(props);
 
-  // this.state = {
-  //   loading: false
-  // };
-  // }
+    this.state = {};
+  }
 
   componentDidMount() {
     // this.setState({ loading: true });
@@ -47,19 +46,21 @@ class Home extends Component {
     }
   };
 
+  handleToggleCommentDisplay = async () => {
+    await this.props.clearComments();
+  };
+
   render() {
     const { id } = this.props;
     if (!id) return <Redirect to="/" />;
-    // console.log(this.props.posts);
-    // if (this.props.posts.length) {
-    //   console.log(this.props.posts[0].img_url);
-    // }
+
     return (
       <div>
-        {/* { (
-          <Spinner name="ball-scale-ripple-multiple" color="fuchsia" />
-        ) : ( */}
-
+        <div className={this.props.showComments ? "show" : "hide"}>
+          <CommentList
+            handleToggleCommentDisplay={this.handleToggleCommentDisplay}
+          />
+        </div>
         {!this.props.showComments ? (
           <div className="headers">
             <HomeHeader />
@@ -72,20 +73,6 @@ class Home extends Component {
         <div className="content">
           <PostList />
         </div>
-        {/* {!this.props.showComments ? (
-            <div className="content">
-              <PostList />
-            </div>
-          ) : (
-            <div className="comments">
-              <CommentList />
-            </div>
-          )} */}
-        {this.props.showComments && (
-          <div className="test-div">
-            <CommentList />
-          </div>
-        )}
       </div>
     );
   }
@@ -101,7 +88,8 @@ const mapStateToProps = reduxState => {
 
 const mapDispatchToProps = {
   updatePosts,
-  clearUser
+  clearUser,
+  clearComments
 };
 
 export default connect(

@@ -54,6 +54,9 @@ massive(CONNECTION_STRING).then(db => {
   });
 });
 
+//SERVE REACT APP
+app.use(express.static(`${__dirname}/../build`));
+
 //AUTH ENDPOINTS
 app.post("/auth/register", ac.register);
 app.post("/auth/login", ac.login);

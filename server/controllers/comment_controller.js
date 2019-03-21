@@ -1,11 +1,12 @@
 module.exports = {
   getComments: (req, res) => {
     const db = req.app.get("db");
-    console.log("hit getComments", req.params);
     const { id: post_id } = req.params;
 
     db.comments.get_comments({ post_id }).then(resp => {
-      console.log(resp);
+      if (resp[0]) {
+        delete resp[0].password;
+      }
       res.status(200).send(resp);
     });
   },

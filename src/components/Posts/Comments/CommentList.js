@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import Comment from "./Comment";
+import BackButton from "../../Buttons/BackButton";
 import Spinner from "react-spinkit";
 import { updateComments } from "../../../ducks/reducers/comment_reducer";
 
@@ -26,46 +27,79 @@ class CommentList extends Component {
   }; ///make axios call to get comments specific to post_id
 
   render() {
-    if (this.props.comments.length) {
-      const mappedComments = this.props.comments.map(comment => {
-        return (
-          <Comment key={comment.comment_id} comment={comment} height="50vh" />
-        );
-      });
-      return (
-        <div>
-          <div style={{ height: "10vh", width: "100%" }}>Header</div>
-          <div>{mappedComments}</div>
-          <div
-            style={{
-              position: "fixed",
-              height: "10vh",
-              bottom: "0",
-              width: "100%"
-            }}
-          >
-            Footer
-          </div>
-        </div>
-      );
-    } else {
-      console.log("hit loader");
-      return (
+    const mappedComments = this.props.comments.map(comment => {
+      return <Comment key={comment.comment_id} comment={comment} />;
+    });
+    return (
+      <div className="comment-view-wrapper">
         <div
+          className="comment-header"
           style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: "space-between",
             alignContent: "center",
-            height: "80vh"
+            alignItems: "center"
           }}
         >
-          no comment
-          {/* <Spinner className="loader" name="ball-grid-pulse" color="fuchsia" /> */}
+          <div
+            style={{ marginLeft: "2.5%" }}
+            onClick={this.props.handleToggleCommentDisplay}
+          >
+            <BackButton />
+          </div>
+          <h2>Comments</h2>
+          <div style={{ marginRight: "2.5%", width: "30px" }} />
         </div>
-      );
-    }
+        {mappedComments.length ? (
+          <div>{mappedComments}</div>
+        ) : (
+          <div
+            style={{
+              height: "80vh",
+              background: "white",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <div
+              style={{
+                width: "90%",
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              There are no comments to display.
+            </div>
+            <div
+              style={{
+                width: "90%",
+                display: "flex",
+                justifyContent: "center"
+              }}
+            >
+              Be the first to post!
+            </div>
+          </div>
+        )}
+        <div className="comment-footer">
+          <div
+            style={{
+              marginLeft: "5%",
+              marginBottom: "3px",
+              marginTop: "3px",
+              fontSize: "12px"
+            }}
+          >
+            add a comment...
+          </div>
+          <textarea style={{ width: "90%", height: "40%", margin: "0 auto" }} />
+          <button style={{ marginRight: "5%" }}>Post</button>
+        </div>
+      </div>
+    );
   }
 }
 

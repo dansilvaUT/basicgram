@@ -42,7 +42,6 @@ library.add(
 
 class App extends Component {
   render() {
-    console.log(this.props.showComments);
     return (
       <div className="App">
         {routes}

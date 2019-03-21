@@ -7,6 +7,14 @@
   font-family: cursive;
 }
 
+.comment-header {
+  height: 10vh;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(246, 246, 246);
+}
+
 .content {
   overflow: scroll;
   height: 80vh;
@@ -32,7 +40,7 @@
   height: 10vh;
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-color: grey;
+  border-top-color: rgba(0, 0, 0, 0.3);
   align-items: center;
   display: flex;
   justify-content: center;
@@ -239,18 +247,6 @@ a {
   justify-content: space-between;
 }
 
-.test-div {
-  /* margin-top: 10vh; */
-  background: fuchsia;
-  width: 100%;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  overflow: scroll;
-  animation: slideInLeft;
-  animation-duration: 0.5s;
-}
-
 @keyframes slideInLeft {
   0% {
     transform: translateX(100%);
@@ -258,4 +254,58 @@ a {
   100% {
     transform: translateX(0);
   }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.comment-view-wrapper {
+  background: white;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  overflow: scroll;
+}
+
+.show {
+  animation: slideInLeft;
+  animation-duration: 0.5s;
+}
+
+.hide {
+  animation: slideInRight;
+  animation-duration: 0.5s;
+  transform: translateX(100%);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+}
+
+.comment-footer {
+  height: 10vh;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(246, 246, 246);
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-footer-textarea {
+  background: rgb(255, 255, 255);
+}
+
+.comment {
+  height: 100%;
+  width: 75%;
+  border: solid black 1px;
+  border-radius: 8px;
 }

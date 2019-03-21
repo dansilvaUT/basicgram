@@ -55,6 +55,7 @@ class Post extends Component {
   };
 
   handleDisplayComments = () => {
+    console.log("hit display comment");
     const { post_id } = this.props.post;
 
     this.props.selectPostID(post_id);
