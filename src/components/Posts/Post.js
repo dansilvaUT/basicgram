@@ -7,7 +7,9 @@ import EditCaptionButton from "../Buttons/EditCaptionButton";
 import EllipsisMenuButton from "../Buttons/EllipsisMenuButton";
 import SaveButton from "../Buttons/SaveButton";
 import { updatePosts } from "../.././ducks/reducers/post_reducer";
+import { selectPostID } from "../.././ducks/reducers/comment_reducer";
 import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 
 class Post extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class Post extends Component {
     this.state = {
       editing: false,
       caption: this.props.post.caption
+      // loading: true
     };
   }
 
@@ -46,10 +49,15 @@ class Post extends Component {
   handleDeletePost = () => {
     const { post_id } = this.props.post;
     const { id } = this.props;
-    console.log("hit", post_id, id);
     axios.delete(`/api/post/${post_id}`, { id }).then(resp => {
       this.props.updatePosts(resp.data);
     });
+  };
+
+  handleDisplayComments = () => {
+    const { post_id } = this.props.post;
+
+    this.props.selectPostID(post_id);
   };
 
   render() {
@@ -99,7 +107,15 @@ class Post extends Component {
             <EllipsisMenuButton />
           </div>
         </div>
-        <img alt={post_id} src={img_url} width="100%" height="300px" />
+        <img
+          // onLoad={() => this.setState({ loading: false })}
+          alt={post_id}
+          src={img_url}
+          width="100%"
+          // width={this.state.loading ? "0%" : "100%"}
+          height="300px"
+          // style={this.state.loading ? { backgroundColor: "blue" } : {}}
+        />
         <div
           className="post-footer-content"
           style={{
@@ -112,7 +128,7 @@ class Post extends Component {
             <div>
               <LikeButton />
             </div>
-            <div>
+            <div onClick={this.handleDisplayComments}>
               <CommentButton />
             </div>
           </div>
@@ -184,7 +200,8 @@ const mapStateToProps = reduxState => {
 };
 
 const mapDispatchToProps = {
-  updatePosts
+  updatePosts,
+  selectPostID
 };
 
 export default connect(

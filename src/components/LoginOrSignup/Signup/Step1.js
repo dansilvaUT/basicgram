@@ -40,21 +40,29 @@ class Step1 extends Component {
     }
   };
 
-  handleCheckEmail = () => {
+  handleCheckEmail = async () => {
     const { email } = this.state;
-    axios
-      .post("/api/checkemail", { email })
-      .then(resp => {
-        this.setState({
-          emailTaken: false,
-          emailChecked: true
+    if (this.state.passwordsMatch == false) {
+      alert("Passwords do not match. Please enter a valid password");
+    } else if (this.state.email == "") {
+      alert("Email invalid. Please enter a valid email address.");
+    } else {
+      await axios
+        .post("/api/checkemail", { email })
+        .then(resp => {
+          this.setState({
+            emailTaken: false
+          });
+          this.props.updateUserInfo1(this.state);
+          this.props.history.push("/signup/step2");
+        })
+        .catch(err => {
+          this.setState({
+            emailTaken: true
+          });
+          alert("Email taken. Please enter another email address.");
         });
-      })
-      .catch(err => {
-        this.setState({
-          emailTaken: true
-        });
-      });
+    }
   };
 
   render() {
@@ -110,22 +118,6 @@ class Step1 extends Component {
               <button
                 onClick={() => {
                   this.handleCheckEmail();
-                  if (this.state.passwordsMatch == false) {
-                    alert(
-                      "Passwords do not match. Please enter a valid password"
-                    );
-                  } else if (
-                    this.state.email !== "" &&
-                    this.state.emailTaken == false &&
-                    this.state.emailChecked
-                  ) {
-                    this.props.updateUserInfo1(this.state);
-                    this.props.history.push("/signup/step2");
-                  } else {
-                    alert(
-                      "Email invalid or taken. Please enter a different email"
-                    );
-                  }
                 }}
               >
                 Next Step

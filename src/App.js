@@ -4,6 +4,7 @@ import Nav from "./components/Nav/Nav";
 import LoginSignupFooter from "./components/LoginOrSignup/LoginSignupFooter";
 import "./App.css";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 // import { store, persistor } from "./ducks/store";
 // import { PersistGate } from "redux-persist/integration/react";
 
@@ -41,6 +42,7 @@ library.add(
 
 class App extends Component {
   render() {
+    console.log(this.props.showComments);
     return (
       <div className="App">
         {routes}
@@ -48,14 +50,21 @@ class App extends Component {
         this.props.location.pathname === "/" ? (
           <LoginSignupFooter />
         ) : (
-          <Nav />
+          <div>
+            <Nav />
+          </div>
         )}
       </div>
     );
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = reduxState => {
+  return {
+    showComments: reduxState.comment_reducer.showComments
+  };
+};
+export default withRouter(connect(mapStateToProps)(App));
 
 {
   /* <PersistGate persistor={persistor} loading={null}> */

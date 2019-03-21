@@ -7,6 +7,7 @@ import { updatePosts } from "../../ducks/reducers/post_reducer";
 import HomeHeader from "./HomeHeader";
 // import Spinner from "react-spinkit";
 import PostList from "../Posts/PostList";
+import CommentList from "../Posts/Comments/CommentList";
 
 class Home extends Component {
   // constructor(props) {
@@ -58,14 +59,33 @@ class Home extends Component {
         {/* { (
           <Spinner name="ball-scale-ripple-multiple" color="fuchsia" />
         ) : ( */}
-        <div>
+
+        {!this.props.showComments ? (
           <div className="headers">
             <HomeHeader />
           </div>
-          <div className="content">
-            <PostList />
+        ) : (
+          <div className="headers">
+            <HomeHeader />
           </div>
+        )}
+        <div className="content">
+          <PostList />
         </div>
+        {/* {!this.props.showComments ? (
+            <div className="content">
+              <PostList />
+            </div>
+          ) : (
+            <div className="comments">
+              <CommentList />
+            </div>
+          )} */}
+        {this.props.showComments && (
+          <div className="test-div">
+            <CommentList />
+          </div>
+        )}
       </div>
     );
   }
@@ -74,7 +94,8 @@ class Home extends Component {
 const mapStateToProps = reduxState => {
   return {
     id: reduxState.auth_reducer.id,
-    posts: reduxState.post_reducer.posts
+    showComments: reduxState.comment_reducer.showComments,
+    post_id: reduxState.comment_reducer.post_id
   };
 };
 

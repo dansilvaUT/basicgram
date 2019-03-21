@@ -6,19 +6,21 @@ module.exports = {
       res.status(200).send(resp);
     });
   },
-  getUserInfo: (req, res) => {
-    const db = req.app.get("db");
-    console.log(req.body);
-    const { post_id } = req.body;
 
-    db.posts.get_user_info({ post_id }).then(resp => {
-      res.status(200).send(resp);
-    });
-  },
+  ////getUserInfo needs to be moved to auth controller
+  // getUserInfo: (req, res) => {
+  //   console.log("hit getUserInfo");
+  //   const db = req.app.get("db");
+  //   const { post_id } = req.body;
+
+  //   db.users.get_user_info({ post_id }).then(resp => {
+  //     res.status(200).send(resp);
+  //   });
+  // },
   createPost: (req, res) => {
     const db = req.app.get("db");
     const { user_id } = req.session.user;
-    let { img_url, caption } = req.body;
+    let { url: img_url, caption } = req.body;
     let post_privacy_level = 0;
     let post_rating = 0;
     let date_added = new Date();
@@ -41,7 +43,6 @@ module.exports = {
     const db = req.app.get("db");
     const { user_id } = req.session.user;
     const { id: post_id } = req.params;
-    console.log("hit", post_id, user_id);
 
     db.posts.delete_post({ post_id, user_id }).then(resp => {
       res.status(200).send(resp);

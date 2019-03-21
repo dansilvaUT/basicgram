@@ -8,7 +8,8 @@ class LoginOrSignupHeader extends Component {
       <div
         style={{
           display: "flex",
-          alignItems: "center"
+          alignItems: "center",
+          height: "100%"
         }}
       >
         <img

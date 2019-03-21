@@ -28,11 +28,13 @@ import { createStore, combineReducers } from "redux";
 import auth_reducer from "./reducers/auth_reducer";
 import post_reducer from "./reducers/post_reducer";
 import register_reducer from "./reducers/register_reducer";
+import comment_reducer from "./reducers/comment_reducer";
 
 const reduxStore = combineReducers({
   auth_reducer,
   post_reducer,
-  register_reducer
+  register_reducer,
+  comment_reducer
 });
 
 export default createStore(reduxStore);

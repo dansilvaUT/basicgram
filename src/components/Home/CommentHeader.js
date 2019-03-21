@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import SignOutButton from "./../Buttons/SignOutButton";
 import insta_icon from "../../../src/insta_icon.png";
 
-class HomeHeader extends Component {
+class CommentHeader extends Component {
   render() {
     return (
       <div
         style={{
-          height: "100%",
           display: "flex",
           alignItems: "center",
           alignContent: "center",
@@ -31,4 +29,4 @@ class HomeHeader extends Component {
   }
 }
 
-export default withRouter(HomeHeader);
+export default CommentHeader;
