@@ -18,7 +18,6 @@ class Post extends Component {
     this.state = {
       editing: false,
       caption: this.props.post.caption
-      // loading: true
     };
   }
 
@@ -55,7 +54,6 @@ class Post extends Component {
   };
 
   handleDisplayComments = () => {
-    console.log("hit display comment");
     const { post_id } = this.props.post;
 
     this.props.selectPostID(post_id);
@@ -108,15 +106,7 @@ class Post extends Component {
             <EllipsisMenuButton />
           </div>
         </div>
-        <img
-          // onLoad={() => this.setState({ loading: false })}
-          alt={post_id}
-          src={img_url}
-          width="100%"
-          // width={this.state.loading ? "0%" : "100%"}
-          height="300px"
-          // style={this.state.loading ? { backgroundColor: "blue" } : {}}
-        />
+        <img alt={post_id} src={img_url} width="100%" height="300px" />
         <div
           className="post-footer-content"
           style={{

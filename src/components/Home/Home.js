@@ -4,7 +4,10 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { clearUser } from "../../ducks/reducers/auth_reducer";
 import { updatePosts } from "../../ducks/reducers/post_reducer";
-import { clearComments } from "../../ducks/reducers/comment_reducer";
+import {
+  clearComments,
+  resetHideComments
+} from "../../ducks/reducers/comment_reducer";
 import HomeHeader from "./HomeHeader";
 // import Spinner from "react-spinkit";
 import PostList from "../Posts/PostList";
@@ -13,8 +16,6 @@ import CommentList from "../Posts/Comments/CommentList";
 class Home extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {};
   }
 
   componentDidMount() {
@@ -36,6 +37,10 @@ class Home extends Component {
     }
   };
 
+  componentWillUnmount() {
+    this.props.resetHideComments();
+  }
+
   getPosts = async () => {
     try {
       let res = await axios.get("/api/posts");
@@ -56,7 +61,15 @@ class Home extends Component {
 
     return (
       <div>
-        <div className={this.props.showComments ? "show" : "hide"}>
+        <div
+          className={
+            this.props.hideComments
+              ? "hidden"
+              : this.props.showComments
+              ? "show"
+              : "hide"
+          }
+        >
           <CommentList
             handleToggleCommentDisplay={this.handleToggleCommentDisplay}
           />
@@ -82,6 +95,7 @@ const mapStateToProps = reduxState => {
   return {
     id: reduxState.auth_reducer.id,
     showComments: reduxState.comment_reducer.showComments,
+    hideComments: reduxState.comment_reducer.hideComments,
     post_id: reduxState.comment_reducer.post_id
   };
 };
@@ -89,7 +103,8 @@ const mapStateToProps = reduxState => {
 const mapDispatchToProps = {
   updatePosts,
   clearUser,
-  clearComments
+  clearComments,
+  resetHideComments
 };
 
 export default connect(

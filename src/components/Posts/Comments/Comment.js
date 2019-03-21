@@ -13,12 +13,11 @@ class Comment extends Component {
   }
 
   render() {
-    console.log("displaying comment", this.props.comment);
-    const { username } = this.props.comment.username;
+    const { username } = this.props.comment;
     const { comment } = this.state;
     return (
       <div className="comment">
-        <div>{username}</div>
+        <div style={{ fontWeight: "bold" }}>{username}</div>
         <div className="comment-contents">{comment}</div>
       </div>
     );

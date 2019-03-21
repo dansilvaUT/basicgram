@@ -7,12 +7,22 @@ import Spinner from "react-spinkit";
 import { updateComments } from "../../../ducks/reducers/comment_reducer";
 
 class CommentList extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      comment: ""
+    };
+  }
 
   componentDidMount() {
     this.getComments();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.post_id !== this.props.post_id) {
+      this.getComments();
+    }
   }
 
   getComments = async () => {
@@ -20,11 +30,28 @@ class CommentList extends Component {
     try {
       let res = await axios.post(`/api/comments/${post_id}`);
       this.props.updateComments(res.data);
-      // this.setState({ loading: false });
     } catch (err) {
       console.log("unable to retrieve posts");
     }
-  }; ///make axios call to get comments specific to post_id
+  };
+
+  handleChange = e => {
+    this.setState({
+      comment: e.target.value
+    });
+  };
+
+  handleSubmitComment = () => {
+    const { comment } = this.state;
+    const { post_id } = this.props;
+
+    axios.post("/api/comment", { post_id, comment }).then(resp => {
+      this.getComments();
+      this.setState({
+        comment: ""
+      });
+    });
+  };
 
   render() {
     const mappedComments = this.props.comments.map(comment => {
@@ -51,7 +78,16 @@ class CommentList extends Component {
           <div style={{ marginRight: "2.5%", width: "30px" }} />
         </div>
         {mappedComments.length ? (
-          <div>{mappedComments}</div>
+          <div
+            style={{
+              height: "80vh",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            {mappedComments}
+          </div>
         ) : (
           <div
             style={{
@@ -95,8 +131,26 @@ class CommentList extends Component {
           >
             add a comment...
           </div>
-          <textarea style={{ width: "90%", height: "40%", margin: "0 auto" }} />
-          <button style={{ marginRight: "5%" }}>Post</button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <textarea
+              className="comment-textarea"
+              value={this.state.comment}
+              onChange={this.handleChange}
+            />
+            <button
+              className="comment-post-button"
+              onClick={this.handleSubmitComment}
+            >
+              Post
+            </button>
+          </div>
         </div>
       </div>
     );

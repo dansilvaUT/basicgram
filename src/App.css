@@ -288,6 +288,10 @@ a {
   position: fixed;
 }
 
+.hidden {
+  display: none;
+}
+
 .comment-footer {
   height: 10vh;
   width: 100%;
@@ -304,8 +308,23 @@ a {
 }
 
 .comment {
-  height: 100%;
-  width: 75%;
+  width: 90%;
   border: solid black 1px;
   border-radius: 8px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  padding: 3px;
+}
+
+.comment-post-button {
+  border: solid blue 1px;
+  border-radius: 8px;
+  margin-right: 5%;
+  margin-left: 2.5%;
+}
+
+.comment-textarea {
+  margin-left: 5%;
+  width: 80%;
+  height: 100%;
 }
