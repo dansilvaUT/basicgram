@@ -4,11 +4,13 @@ const massive = require("massive");
 const session = require("express-session");
 const pg = require("pg");
 const pgSession = require("connect-pg-simple")(session);
+const aws = require("aws-sdk");
 
 // CONTROLLERS
 const ac = require("./controllers/auth_controller");
 const pc = require("./controllers/post_controller");
 const cc = require("./controllers/comment_controller");
+const lc = require("./controllers/likes_controller");
 
 // ENV
 const {
@@ -62,7 +64,7 @@ app.post("/auth/register", ac.register);
 app.post("/auth/login", ac.login);
 app.get("/api/currentuser", ac.getUser);
 app.post("/auth/logout", ac.logout);
-app.delete("/auth/delete", ac.deleteUser);
+app.delete("/auth/delete", ac.deleteUser); //not yet hooked up
 app.post("/api/checkemail", ac.checkEmail);
 
 //POST ENDPOINTS
@@ -75,11 +77,14 @@ app.delete("/api/post/:id", pc.deletePost);
 //COMMENT ENDPOINTS
 app.post("/api/comments/:id", cc.getComments);
 app.post("/api/comment", cc.createComment);
-app.put("/api/comment/:id", cc.editComment);
-app.delete("/api/comment/:id", cc.deleteComment);
+app.put("/api/comment/:id", cc.editComment); //not yet hooked up
+app.delete("/api/comment/:id", cc.deleteComment); //not yet hooked up
 
-//AWS
-const aws = require("aws-sdk");
+//LIKE ENDPOINTS
+app.post("/api/likes/:id", lc.getLikes);
+app.post("/api/like/:id", lc.addLike);
+app.post("/api/likeddelete/:id", lc.deleteLike);
+app.post("/api/liked/:id", lc.checkIfLiked);
 
 //AWS ENDPOINT
 app.get("/api/signs3", (req, res) => {

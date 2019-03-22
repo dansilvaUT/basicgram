@@ -1,36 +1,38 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHeart
+  faHeart,
+  faThumbsDown
   // faTrash
 } from "@fortawesome/free-regular-svg-icons";
 
 class LikeButton extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      clicked: false,
-      color: "black"
-    };
+  constructor(props) {
+    super(props);
   }
 
-  handleClick = () => {
-    this.setState({
-      clicked: !this.state.clicked
-    });
-  };
-
   render() {
+    const {
+      likedByUser,
+      handleAddLike,
+      handleDeleteLike,
+      username
+    } = this.props;
     return (
       <div>
-        <button onClick={this.handleClick}>
-          {this.state.clicked === false ? (
-            <FontAwesomeIcon icon={faHeart} size="2x" color="black" />
-          ) : (
+        {username == "todd" && likedByUser ? (
+          <button onClick={() => handleDeleteLike()}>
+            <FontAwesomeIcon icon={faThumbsDown} size="2x" color="black" />
+          </button>
+        ) : likedByUser ? (
+          <button onClick={() => handleDeleteLike()}>
             <FontAwesomeIcon icon="heart" size="2x" color="#fb3958" />
-          )}
-        </button>
+          </button>
+        ) : (
+          <button onClick={() => handleAddLike()}>
+            <FontAwesomeIcon icon={faHeart} size="2x" color="black" />
+          </button>
+        )}
       </div>
     );
   }

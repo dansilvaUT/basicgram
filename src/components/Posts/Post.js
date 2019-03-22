@@ -17,9 +17,16 @@ class Post extends Component {
 
     this.state = {
       editing: false,
-      caption: this.props.post.caption
+      caption: this.props.post.caption,
+      likes: 0,
+      likedByUser: false
     };
   }
+
+  componentDidMount = async () => {
+    await this.handleGetLikes();
+    this.handleCheckIfLiked();
+  };
 
   handleChange = e => {
     this.setState({
@@ -57,6 +64,67 @@ class Post extends Component {
     const { post_id } = this.props.post;
 
     this.props.selectPostID(post_id);
+  };
+
+  handleGetLikes = () => {
+    const { post_id } = this.props.post;
+    axios.post(`/api/likes/${post_id}`).then(resp => {
+      this.setState({
+        likes: resp.data[0].count
+      });
+    });
+  };
+
+  handleCheckIfLiked = () => {
+    const { post_id } = this.props.post;
+    axios
+      .post(`/api/liked/${post_id}`)
+      .then(resp => {
+        if (resp.data[0].count > 0) {
+          this.setState({
+            likedByUser: true
+          });
+        } else {
+          this.setState({
+            likedByUser: false
+          });
+        }
+      })
+      .catch(err => {
+        console.log("hit catch of handleCheckIfLiked");
+      });
+  };
+
+  handleAddLike = () => {
+    const { post_id } = this.props.post;
+    axios
+      .post(`/api/like/${post_id}`)
+      .then(resp => {
+        this.setState({
+          likedByUser: true
+        });
+
+        this.handleGetLikes();
+      })
+
+      .catch(err => {
+        console.log("hit catch of handleAddLike");
+      });
+  };
+
+  handleDeleteLike = () => {
+    const { post_id } = this.props.post;
+    axios
+      .post(`/api/likeddelete/${post_id}`)
+      .then(resp => {
+        this.setState({
+          likedByUser: false
+        });
+        this.handleGetLikes();
+      })
+      .catch(err => {
+        console.log("hit catch of handleDeleteLike");
+      });
   };
 
   render() {
@@ -115,9 +183,19 @@ class Post extends Component {
             justifyContent: "space-between"
           }}
         >
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
             <div>
-              <LikeButton />
+              <LikeButton
+                likedByUser={this.state.likedByUser}
+                handleAddLike={this.handleAddLike}
+                handleDeleteLike={this.handleDeleteLike}
+                username={username}
+              />
             </div>
             <div onClick={this.handleDisplayComments}>
               <CommentButton />
@@ -140,7 +218,25 @@ class Post extends Component {
             </div>
           ) : null}
         </div>
-        <p style={{ margin: "0" }}>Likes</p>
+        <div
+          style={{
+            display: "flex",
+            alignContent: "center",
+            fontSize: ".9em",
+            fontWeight: "bold"
+          }}
+        >
+          {username == "todd" && this.state.likes > 0 ? (
+            <div>{this.state.likes * Math.floor(Math.random() * 10000)} </div>
+          ) : (
+            <div>{this.state.likes}</div>
+          )}
+          {username == "todd" && this.state.likes > 0 ? (
+            <div style={{ marginLeft: "3px" }}>dislikes</div>
+          ) : (
+            <div style={{ marginLeft: "3px" }}>likes</div>
+          )}
+        </div>
         {this.state.editing === true ? (
           <div style={{ display: "flex" }}>
             <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
