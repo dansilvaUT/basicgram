@@ -17,8 +17,10 @@ class Comment extends Component {
     const { comment } = this.state;
     return (
       <div className="comment">
-        <div style={{ fontWeight: "bold" }}>{username}</div>
-        <div className="comment-contents">{comment}</div>
+        <div style={{ padding: "2px", paddingLeft: "6px" }}>
+          <div style={{ fontWeight: "bold" }}>{username}</div>
+          <div className="comment-contents">{comment}</div>
+        </div>
       </div>
     );
   }

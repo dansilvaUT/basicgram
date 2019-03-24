@@ -2,10 +2,22 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { updatePosts } from "../../ducks/reducers/post_reducer";
+import {
+  clearComments,
+  resetHideComments
+} from "../../ducks/reducers/comment_reducer";
+import PostList from "../Posts/PostList";
+import CommentList from "../Posts/Comments/CommentList";
 
 class Search extends Component {
   constructor(props) {
-    super();
+    super(props);
+
+    this.state = {
+      search: "",
+      opacity: "faded"
+    };
   }
 
   componentDidMount() {
@@ -24,24 +36,106 @@ class Search extends Component {
     }
   };
 
+  componentWillUnmount() {
+    this.props.resetHideComments();
+  }
+
+  handleToggleCommentDisplay = async () => {
+    await this.props.clearComments();
+  };
+
+  handleSearch = () => {};
+
+  handleChange = async e => {
+    await this.setState({
+      search: e.target.value
+    });
+
+    if (this.state.search !== "") {
+      this.setState({
+        opacity: "solid"
+      });
+    } else {
+      this.setState({
+        opacity: "faded"
+      });
+    }
+  };
+
   render() {
     const { id } = this.props;
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        <div className="headers">Search</div>
-        <div className="content">Search</div>
+        <div
+          className={
+            this.props.hideComments
+              ? "hidden"
+              : this.props.showComments
+              ? "show"
+              : "hide"
+          }
+        >
+          <CommentList
+            handleToggleCommentDisplay={this.handleToggleCommentDisplay}
+          />
+        </div>
+        <div
+          className="headers"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <div
+            className="comment-input-section"
+            style={{
+              borderWidth: "1px",
+              borderRadius: "16px",
+              paddingRight: "5px",
+              paddingLeft: "5px"
+            }}
+          >
+            <input
+              value={this.state.search}
+              onChange={this.handleChange}
+              placeholder="Search Posts By Username"
+              style={{ textAlign: "center" }}
+            />
+            <button
+              className={this.state.opacity}
+              onClick={this.handleSearch}
+              style={{ fontWeight: "bold", color: "blue", fontSize: 12 }}
+            >
+              SEARCH
+            </button>
+          </div>
+        </div>
+        <div className="content">
+          <PostList search={this.state.search.toLowerCase()} />
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = reduxState => {
-  // console.log(reduxState);
   return {
     id: reduxState.auth_reducer.id,
-    posts: reduxState.post_reducer.posts
+    showComments: reduxState.comment_reducer.showComments,
+    hideComments: reduxState.comment_reducer.hideComments,
+    post_id: reduxState.comment_reducer.post_id
   };
 };
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = {
+  updatePosts,
+  clearComments,
+  resetHideComments
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);

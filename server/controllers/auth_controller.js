@@ -19,9 +19,9 @@ module.exports = {
     } = req.body;
     const { session } = req;
 
-    if (profile_pic == "") {
-      profile_pic = `https://robohash.org/${email}`;
-    }
+    // if (profile_pic == "") {
+    //   profile_pic = `https://robohash.org/${email}`;
+    // }
 
     //check database to see if username is taken. If taken, return status409
     let takenEmail = await db.auth.check_email({ email });

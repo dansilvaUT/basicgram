@@ -9,7 +9,6 @@ import {
   resetHideComments
 } from "../../ducks/reducers/comment_reducer";
 import HomeHeader from "./HomeHeader";
-// import Spinner from "react-spinkit";
 import PostList from "../Posts/PostList";
 import CommentList from "../Posts/Comments/CommentList";
 
@@ -74,15 +73,11 @@ class Home extends Component {
             handleToggleCommentDisplay={this.handleToggleCommentDisplay}
           />
         </div>
-        {!this.props.showComments ? (
-          <div className="headers">
-            <HomeHeader />
-          </div>
-        ) : (
-          <div className="headers">
-            <HomeHeader />
-          </div>
-        )}
+
+        <div className="headers">
+          <HomeHeader />
+        </div>
+
         <div className="content">
           <PostList />
         </div>

@@ -3,10 +3,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import SignOutButton from "./../Buttons/SignOutButton";
 import { Redirect } from "react-router-dom";
+import User from "./User";
+import UserPostList from "./UserPostList";
 
 class Profile extends Component {
   constructor(props) {
-    super();
+    super(props);
   }
 
   componentDidMount() {
@@ -31,7 +33,10 @@ class Profile extends Component {
     return (
       <div>
         <div className="headers"> </div>
-        <div className="content">Profile</div>
+        <div className="content">
+          <User />
+          <UserPostList />
+        </div>
       </div>
     );
   }

@@ -63,6 +63,7 @@ const mapStateToProps = reduxState => {
     showComments: reduxState.comment_reducer.showComments
   };
 };
+
 export default withRouter(connect(mapStateToProps)(App));
 
 {

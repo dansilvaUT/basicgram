@@ -11,7 +11,8 @@ class CommentList extends Component {
     super(props);
 
     this.state = {
-      comment: ""
+      comment: "",
+      opacity: "faded"
     };
   }
 
@@ -27,6 +28,10 @@ class CommentList extends Component {
 
   getComments = async () => {
     const { post_id } = this.props;
+    this.setState({
+      comment: "",
+      opacity: "faded"
+    });
     try {
       let res = await axios.post(`/api/comments/${post_id}`);
       this.props.updateComments(res.data);
@@ -35,10 +40,20 @@ class CommentList extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
+  handleChange = async e => {
+    await this.setState({
       comment: e.target.value
     });
+
+    if (this.state.comment !== "") {
+      this.setState({
+        opacity: "solid"
+      });
+    } else {
+      this.setState({
+        opacity: "faded"
+      });
+    }
   };
 
   handleSubmitComment = () => {
@@ -121,34 +136,14 @@ class CommentList extends Component {
           </div>
         )}
         <div className="comment-footer">
-          <div
-            style={{
-              marginLeft: "5%",
-              marginBottom: "3px",
-              marginTop: "3px",
-              fontSize: "12px"
-            }}
-          >
-            add a comment...
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-              alignContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <textarea
-              className="comment-textarea"
-              value={this.state.comment}
-              onChange={this.handleChange}
-            />
+          <div className="comment-input-section">
+            <input value={this.state.comment} onChange={this.handleChange} />
             <button
-              className="comment-post-button"
+              className={this.state.opacity}
               onClick={this.handleSubmitComment}
+              style={{ fontWeight: "bold", color: "blue", fontSize: 12 }}
             >
-              Post
+              POST
             </button>
           </div>
         </div>
