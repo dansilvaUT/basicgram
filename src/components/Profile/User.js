@@ -5,15 +5,38 @@ import TwitterButton from "../Buttons/TwitterButton";
 import FacebookButton from "../Buttons/FacebookButton";
 import RedditButton from "../Buttons/RedditButton";
 import TumblrButton from "../Buttons/TumblrButton";
+import EditProfileButton from "../Buttons/EditProfileButton";
+import ProfileSaveButton from "../Buttons/ProfileSaveButton";
 
 class User extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editing: false
+      usernameEditing: false,
+      emailEditing: false,
+      username: this.props.username,
+      email: this.props.email
     };
   }
+
+  handleChange = (prop, val) => {
+    this.setState({
+      [prop]: val
+    });
+  };
+
+  handleUsernameEdit = () => {
+    this.setState({
+      usernameEditing: !this.state.usernameEditing
+    });
+  };
+
+  handleEmailEdit = () => {
+    this.setState({
+      emailEditing: !this.state.emailEditing
+    });
+  };
 
   render() {
     const {
@@ -22,7 +45,8 @@ class User extends Component {
       first_name,
       last_name,
       id,
-      posts
+      posts,
+      email
     } = this.props;
     const postCount = posts.filter(post => {
       if (post.user_id == id) {
@@ -33,7 +57,9 @@ class User extends Component {
     return (
       <div>
         <div className="user-component-container">
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", width: "40%" }}
+          >
             <div className="user-profile-pic-container">
               <img
                 className="user-profile-pic"
@@ -42,11 +68,23 @@ class User extends Component {
                 src={profile_pic}
               />
             </div>
-            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-              <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5em",
+                  marginLeft: "6px"
+                }}
+              >
                 {first_name}
               </div>
-              <div style={{ fontWeight: "bold", fontSize: "1.5em" }}>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "1.5em",
+                  marginLeft: "10px"
+                }}
+              >
                 {last_name}
               </div>
             </div>
@@ -94,19 +132,54 @@ class User extends Component {
                   </div>
                 </div>
               </div>
-              {this.state.editing ? (
-                <div>
-                  <input />
+              {this.state.usernameEditing ? (
+                <div style={{ display: "flex" }}>
+                  <input
+                    className="profile-input"
+                    value={this.state.username}
+                    onChange={e =>
+                      this.handleChange("username", e.target.value)
+                    }
+                  />
+                  <div onClick={this.handleUsernameEdit}>
+                    <ProfileSaveButton />
+                  </div>
                 </div>
               ) : (
-                <div style={{ fontWeight: "bold" }}>{username}</div>
+                <div style={{ display: "flex" }}>
+                  <div style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+                    {this.state.username}
+                  </div>
+                  <div onClick={this.handleUsernameEdit}>
+                    <EditProfileButton />
+                  </div>
+                </div>
               )}
-              {this.state.editing ? (
-                <div>
-                  <input />
+              {this.state.emailEditing ? (
+                <div style={{ display: "flex" }}>
+                  <input
+                    className="profile-input"
+                    value={this.state.email}
+                    onChange={e => this.handleChange("email", e.target.value)}
+                  />
+                  <div onClick={this.handleEmailEdit}>
+                    <ProfileSaveButton />
+                  </div>
                 </div>
               ) : (
-                <div style={{ fontWeight: "bold" }}>item3</div>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "1.2em"
+                    }}
+                  >
+                    {this.state.email}
+                  </div>
+                  <div onClick={this.handleEmailEdit}>
+                    <EditProfileButton />
+                  </div>
+                </div>
               )}
             </div>
             <div className="social-media-container">
@@ -133,6 +206,7 @@ class User extends Component {
 const mapStateToProps = reduxState => {
   return {
     id: reduxState.auth_reducer.id,
+    email: reduxState.auth_reducer.email,
     profile_pic: reduxState.auth_reducer.profile_pic,
     first_name: reduxState.auth_reducer.first_name,
     last_name: reduxState.auth_reducer.last_name,
