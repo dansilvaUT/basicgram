@@ -9,12 +9,19 @@ class User extends Component {
 
   render() {
     const { profile_pic, username, first_name, last_name } = this.props;
+
+    console.log(profile_pic);
     return (
       <div>
         <div className="user-component-container">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="user-profile-pic-container">
-              <img className="user-profile-pic" width="95%" src={profile_pic} />
+              <img
+                className="user-profile-pic"
+                width="94%"
+                height="94%"
+                src={profile_pic}
+              />
             </div>
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <div style={{ fontWeight: "bold" }}>{first_name}</div>
