@@ -5,6 +5,7 @@ import SignOutButton from "./../Buttons/SignOutButton";
 import { Redirect } from "react-router-dom";
 import User from "./User";
 import UserPostList from "./UserPostList";
+import ProfileHeader from "./ProfileHeader";
 
 class Profile extends Component {
   constructor(props) {
@@ -32,7 +33,9 @@ class Profile extends Component {
     if (!id) return <Redirect to="/" />;
     return (
       <div>
-        <div className="headers"> </div>
+        <div className="profile-header">
+          <ProfileHeader username={this.props.username} />
+        </div>
         <div className="content">
           <User />
           <UserPostList />
@@ -45,7 +48,8 @@ class Profile extends Component {
 const mapStateToProps = reduxState => {
   // console.log(reduxState);
   return {
-    id: reduxState.auth_reducer.id
+    id: reduxState.auth_reducer.id,
+    username: reduxState.auth_reducer.username
   };
 };
 

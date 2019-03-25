@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { clearUser } from "../../ducks/reducers/auth_reducer";
+import { clearUser, updateUser } from "../../ducks/reducers/auth_reducer";
 import { updatePosts } from "../../ducks/reducers/post_reducer";
 import {
   clearComments,
@@ -99,7 +99,8 @@ const mapDispatchToProps = {
   updatePosts,
   clearUser,
   clearComments,
-  resetHideComments
+  resetHideComments,
+  updateUser
 };
 
 export default connect(

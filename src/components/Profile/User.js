@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { updateUser } from "../../ducks/reducers/auth_reducer";
 import TwitterButton from "../Buttons/TwitterButton";
 import FacebookButton from "../Buttons/FacebookButton";
 import RedditButton from "../Buttons/RedditButton";
@@ -20,6 +21,8 @@ class User extends Component {
     };
   }
 
+  componentDidMount() {}
+
   handleChange = (prop, val) => {
     this.setState({
       [prop]: val
@@ -28,14 +31,36 @@ class User extends Component {
 
   handleUsernameEdit = () => {
     this.setState({
-      usernameEditing: !this.state.usernameEditing
+      usernameEditing: true
     });
+  };
+
+  handleUsernameSave = async () => {
+    const { username } = this.state;
+    await axios.put("/api/updateusername", { username }).then(resp => {
+      this.setState({
+        username: resp.data[0].username,
+        usernameEditing: false
+      });
+    });
+    // this.props.updateUser(username);
   };
 
   handleEmailEdit = () => {
     this.setState({
-      emailEditing: !this.state.emailEditing
+      emailEditing: true
     });
+  };
+
+  handleEmailSave = async () => {
+    const { email } = this.state;
+    await axios.put("/api/updateemail", { email }).then(resp => {
+      this.setState({
+        email: resp.data[0].email,
+        emailEditing: false
+      });
+    });
+    // this.props.updateUser(email);
   };
 
   render() {
@@ -72,8 +97,7 @@ class User extends Component {
               <div
                 style={{
                   fontWeight: "bold",
-                  fontSize: "1.5em",
-                  marginLeft: "6px"
+                  fontSize: "1.3em"
                 }}
               >
                 {first_name}
@@ -81,8 +105,8 @@ class User extends Component {
               <div
                 style={{
                   fontWeight: "bold",
-                  fontSize: "1.5em",
-                  marginLeft: "10px"
+                  fontSize: "1.3em",
+                  marginLeft: "3px"
                 }}
               >
                 {last_name}
@@ -141,13 +165,13 @@ class User extends Component {
                       this.handleChange("username", e.target.value)
                     }
                   />
-                  <div onClick={this.handleUsernameEdit}>
+                  <div onClick={this.handleUsernameSave}>
                     <ProfileSaveButton />
                   </div>
                 </div>
               ) : (
                 <div style={{ display: "flex" }}>
-                  <div style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+                  <div style={{ fontWeight: "bold", fontSize: "1.1em" }}>
                     {this.state.username}
                   </div>
                   <div onClick={this.handleUsernameEdit}>
@@ -162,7 +186,7 @@ class User extends Component {
                     value={this.state.email}
                     onChange={e => this.handleChange("email", e.target.value)}
                   />
-                  <div onClick={this.handleEmailEdit}>
+                  <div onClick={this.handleEmailSave}>
                     <ProfileSaveButton />
                   </div>
                 </div>
@@ -171,7 +195,7 @@ class User extends Component {
                   <div
                     style={{
                       fontWeight: "bold",
-                      fontSize: "1.2em"
+                      fontSize: "1.1em"
                     }}
                   >
                     {this.state.email}
@@ -184,16 +208,52 @@ class User extends Component {
             </div>
             <div className="social-media-container">
               <div>
-                <TwitterButton />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <TwitterButton />
+                  <EditProfileButton />
+                </div>
               </div>
               <div>
-                <RedditButton />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <RedditButton />
+                  <EditProfileButton />
+                </div>
               </div>
               <div>
-                <TumblrButton />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <TumblrButton />
+                  <EditProfileButton />
+                </div>
               </div>
               <div>
-                <FacebookButton />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <FacebookButton />
+                  <EditProfileButton />
+                </div>
               </div>
             </div>
           </div>
@@ -215,4 +275,7 @@ const mapStateToProps = reduxState => {
   };
 };
 
-export default connect(mapStateToProps)(User);
+export default connect(
+  mapStateToProps,
+  { updateUser }
+)(User);

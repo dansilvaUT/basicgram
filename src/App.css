@@ -8,6 +8,8 @@
 }
 
 .comment-header {
+  z-index: 5;
+  opacity: 1;
   height: 10vh;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -46,8 +48,7 @@
   justify-content: center;
   align-items: center;
 }
-
-.post-header-content {
+.comment-header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -310,11 +311,16 @@ a {
 
 .comment {
   width: 90%;
-  border: solid rgba(0, 0, 0, 0.7) 1px;
-  border-radius: 8px;
+  border: solid rgba(0, 0, 0, 0.4) 1px;
+  border-radius: 16px;
   margin-top: 2%;
-  margin-bottom: 2%;
   padding: 3px;
+}
+
+.comment-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .comment-input-section {
@@ -330,6 +336,7 @@ a {
 
 .comment-input-section input {
   width: 80%;
+  margin-left: 5px;
   height: 70%;
   border-style: none;
 }
@@ -419,5 +426,61 @@ a {
 
 .profile-input {
   font-size: 1em;
-  width: 34px;
+  width: 130px;
+}
+
+.social-media-edit-button {
+  margin: 6px;
+}
+
+.profile-header {
+  height: 10vh;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(246, 246, 246);
+}
+
+.chat-user-container {
+  display: flex;
+  justify-content: "space-around";
+  align-items: center;
+  padding: 5px;
+  margin: 3px;
+}
+
+.start-chat-button {
+  border: solid 1px blue;
+  opacity: 0.5;
+  background-color: white;
+  font-weight: bold;
+  font-size: 0.8em;
+  border-radius: 8px;
+  color: blue;
+}
+
+.start-chat-button-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.comment-profile-pic-container {
+  margin: 3px;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: double 1px transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(white, white),
+    radial-gradient(circle at top left, #833ab4, #fd1d1d, #fcb045);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+.comment-profile-pic {
+  background-color: white;
+  border-radius: 50%;
 }

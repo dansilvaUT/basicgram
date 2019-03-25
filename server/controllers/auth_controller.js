@@ -86,9 +86,10 @@ module.exports = {
       res.sendStatus(200);
     });
   },
+
   deleteUser: (req, res) => {
     const db = req.app.get("db");
-    const user_id = ({ id } = req.session.user);
+    const { user_id } = req.session.user;
 
     db.posts.delete_all_user_posts([user_id]).then(resp => {
       db.auth.delete_user([user_id]).then(resp => {
@@ -108,5 +109,25 @@ module.exports = {
     } else {
       res.sendStatus(200);
     }
+  },
+
+  updateUsername: (req, res) => {
+    const db = req.app.get("db");
+    const { user_id } = req.session.user;
+    const { username } = req.body;
+
+    db.auth.update_username({ user_id, username }).then(resp => {
+      res.status(200).send(resp);
+    });
+  },
+
+  updateEmail: (req, res) => {
+    const db = req.app.get("db");
+    const { user_id } = req.session.user;
+    const { email } = req.body;
+
+    db.auth.update_email({ user_id, email }).then(resp => {
+      res.status(200).send(resp);
+    });
   }
 };

@@ -104,11 +104,11 @@ class Search extends Component {
               style={{ textAlign: "center" }}
             />
             <button
-              className={this.state.opacity}
+              className={this.props.showComments ? "solid" : this.state.opacity}
               onClick={this.handleSearch}
               style={{ fontWeight: "bold", color: "blue", fontSize: 12 }}
             >
-              SEARCH
+              SEARCHING
             </button>
           </div>
         </div>

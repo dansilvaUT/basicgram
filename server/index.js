@@ -11,6 +11,7 @@ const ac = require("./controllers/auth_controller");
 const pc = require("./controllers/post_controller");
 const cc = require("./controllers/comment_controller");
 const lc = require("./controllers/likes_controller");
+const uc = require("./controllers/user_controller");
 
 // ENV
 const {
@@ -66,6 +67,8 @@ app.get("/api/currentuser", ac.getUser);
 app.post("/auth/logout", ac.logout);
 app.delete("/auth/delete", ac.deleteUser); //not yet hooked up
 app.post("/api/checkemail", ac.checkEmail);
+app.put("/api/updateusername", ac.updateUsername);
+app.put("/api/updateemail", ac.updateEmail);
 
 //POST ENDPOINTS
 app.get("/api/posts", pc.getPosts);
@@ -85,6 +88,9 @@ app.post("/api/likes/:id", lc.getLikes);
 app.post("/api/like/:id", lc.addLike);
 app.post("/api/likeddelete/:id", lc.deleteLike);
 app.post("/api/liked/:id", lc.checkIfLiked);
+
+//USER ENDPOINTS
+app.get("/api/users", uc.getAllUsers);
 
 //AWS ENDPOINT
 app.get("/api/signs3", (req, res) => {

@@ -148,30 +148,38 @@ class Post extends Component {
               display: "flex",
               alignItems: "center",
               height: "40px",
-              marginBottom: "3px"
+              marginBottom: "3px",
+              justifyContent: "space-between"
             }}
           >
-            <div className="post-profile-pic-container">
-              <img
-                className="post-profile-pic"
-                padding="0"
-                width="90%"
-                height="90%"
-                src={profile_pic}
-              />
+            <div style={{ display: "flex" }}>
+              <div className="post-profile-pic-container">
+                <img
+                  className="post-profile-pic"
+                  padding="0"
+                  width="90%"
+                  height="90%"
+                  src={profile_pic}
+                />
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ margin: "0", fontWeight: "bold" }}>
+                  {username}
+                </div>
+              </div>
             </div>
-            <p style={{ margin: "0", fontWeight: "bold" }}>{username}</p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignContent: "center",
-              justifyContent: "center",
-              marginRight: "3%"
-            }}
-          >
-            <EllipsisMenuButton />
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  marginRight: "3%"
+                }}
+              >
+                <EllipsisMenuButton />
+              </div>
+            </div>
           </div>
         </div>
         <img alt={post_id} src={img_url} width="100%" height="300px" />
