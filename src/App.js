@@ -43,16 +43,18 @@ library.add(
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        {routes}
-        {this.props.location.pathname.includes("/signup") ||
-        this.props.location.pathname === "/" ? (
-          <LoginSignupFooter />
-        ) : (
-          <div>
-            <Nav />
-          </div>
-        )}
+      <div class="App-container">
+        <div className="App">
+          {routes}
+          {this.props.location.pathname.includes("/signup") ||
+          this.props.location.pathname === "/" ? (
+            <LoginSignupFooter />
+          ) : (
+            <div>
+              <Nav />
+            </div>
+          )}
+        </div>
       </div>
     );
   }

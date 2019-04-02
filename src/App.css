@@ -1,3 +1,24 @@
+* button {
+  border-style: none;
+  background: transparent;
+  outline: none;
+}
+
+#root {
+  max-height: 736px;
+}
+
+.App-container {
+  display: flex;
+  justify-content: center;
+}
+
+.App {
+  max-width: 414px;
+  height: 100%;
+  width: 100%;
+}
+
 .headers {
   height: 10vh;
   border-bottom-style: solid;
@@ -250,7 +271,7 @@ a {
 
 @keyframes slideInLeft {
   0% {
-    transform: translateX(100%);
+    transform: translateX(414px);
   }
   100% {
     transform: translateX(0);
@@ -260,9 +281,12 @@ a {
 @keyframes slideInRight {
   0% {
     transform: translateX(0%);
+    width: 100%;
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(414px);
+    width: 0%;
+    display: none;
   }
 }
 
@@ -276,16 +300,19 @@ a {
 }
 
 .show {
+  max-width: 414px;
   animation: slideInLeft;
+  animation-fill-mode: forwards;
   animation-duration: 0.5s;
 }
 
 .hide {
   animation: slideInRight;
+  animation-fill-mode: initial;
   animation-duration: 0.5s;
   transform: translateX(100%);
   height: 100vh;
-  width: 100%;
+  max-width: 414px;
   position: fixed;
 }
 
@@ -382,8 +409,8 @@ a {
   margin: 3px;
   margin-left: 6px;
   padding: 3px;
-  width: 100px;
-  height: 100px;
+  width: 70%;
+  height: 70%;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -483,4 +510,8 @@ a {
 .comment-profile-pic {
   background-color: white;
   border-radius: 50%;
+}
+
+.content {
+  width: 100%;
 }

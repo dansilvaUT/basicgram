@@ -9,7 +9,6 @@ class UserList extends Component {
   }
 
   render() {
-    console.log(this.props.users, this.props.search);
     if (this.props.search) {
       if (this.props.users.length) {
         const mappedUsers = this.props.users

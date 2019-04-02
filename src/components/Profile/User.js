@@ -83,7 +83,13 @@ class User extends Component {
       <div>
         <div className="user-component-container">
           <div
-            style={{ display: "flex", flexDirection: "column", width: "40%" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "40%",
+              height: "100%",
+              justifyContent: "space-around"
+            }}
           >
             <div className="user-profile-pic-container">
               <img

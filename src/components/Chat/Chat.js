@@ -33,9 +33,7 @@ class Chat extends Component {
   };
 
   getUsers = async () => {
-    console.log("hit get users");
     await axios.get("/api/users").then(resp => {
-      console.log(resp);
       this.setState({
         users: resp.data
       });
@@ -59,7 +57,6 @@ class Chat extends Component {
   };
 
   render() {
-    console.log(this.state.users);
     const { id } = this.props;
     if (!id) return <Redirect to="/" />;
     return (

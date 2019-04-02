@@ -6,6 +6,8 @@ const pg = require("pg");
 const pgSession = require("connect-pg-simple")(session);
 const aws = require("aws-sdk");
 
+const socket = require("socket.io");
+
 // CONTROLLERS
 const ac = require("./controllers/auth_controller");
 const pc = require("./controllers/post_controller");
@@ -51,11 +53,13 @@ app.use(
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
   console.log("Database connected");
+});
 
+const io = socket(
   app.listen(SERVER_PORT, () => {
     console.log(`10-4 on ${SERVER_PORT}`);
-  });
-});
+  })
+);
 
 //SERVE REACT APP
 app.use(express.static(`${__dirname}/../build`));
@@ -122,5 +126,50 @@ app.get("/api/signs3", (req, res) => {
     };
 
     return res.send(returnData);
+  });
+});
+
+//SOCKETS
+io.on("connection", function(socket) {
+  socket.on("startChat", async function(data) {
+    console.log(data);
+    const { chatRoomId, viewedUserId, id } = data;
+    const db = app.get("db");
+    let room = await db.chat.check_room({ id: chatRoomId });
+    room = room[0];
+    if (!room) {
+      db.chat.create_room({
+        id: chatRoomId,
+        user_1: id,
+        user_2: viewedUserId
+      });
+      socket.join(chatRoomId);
+    } else {
+      const { id } = room;
+      let messages = await db.chat.get_all_messages({ room_id: id });
+
+      socket.join(chatRoomId);
+      io.to(chatRoomId).emit("startChat", messages);
+    }
+  });
+
+  socket.on("endChat", function(chatRoomId) {
+    socket.leave(chatRoomId);
+  });
+
+  socket.on("sendMsg", async function(data) {
+    console.log(data);
+    const { user_1, message, room, date } = data;
+    const db = app.get("db");
+    let messages = await db.chat.create_message({
+      room_id: room,
+      message,
+      user_id: user_1,
+      date
+    });
+
+    console.log(messages);
+
+    io.to(data.room).emit("sendMsg", messages);
   });
 });

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class ChatUser extends Component {
   constructor(props) {
@@ -6,8 +7,14 @@ class ChatUser extends Component {
   }
 
   render() {
-    console.log("hit chatuser", this.props.user);
-    const { username, profile_pic, first_name, last_name } = this.props.user;
+    const {
+      username,
+      profile_pic,
+      first_name,
+      last_name,
+      user_id
+    } = this.props.user;
+
     return (
       <div className="chat-user-container">
         <div
@@ -34,7 +41,9 @@ class ChatUser extends Component {
           </div>
         </div>
         <div className="start-chat-button-container">
-          <button className="start-chat-button">Start Chat!</button>
+          <Link to={`/chat/${user_id}`}>
+            <button className="start-chat-button">Start Chat!</button>
+          </Link>
         </div>
       </div>
     );
