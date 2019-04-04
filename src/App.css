@@ -4,8 +4,9 @@
   outline: none;
 }
 
-#root {
+body {
   max-height: 736px;
+  background-color: grey;
 }
 
 .App-container {
@@ -15,12 +16,13 @@
 
 .App {
   max-width: 414px;
-  height: 100%;
   width: 100%;
+  background-color: white;
 }
 
 .headers {
   height: 10vh;
+  max-height: 74px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(0, 0, 0, 0.3);
@@ -32,6 +34,7 @@
   z-index: 5;
   opacity: 1;
   height: 10vh;
+  max-height: 74px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(0, 0, 0, 0.3);
@@ -41,6 +44,7 @@
 .content {
   overflow: scroll;
   height: 80vh;
+  max-height: 588px;
 }
 
 .profile_pic {
@@ -51,6 +55,7 @@
 .nav-bar {
   margin-bottom: 0;
   height: 10vh;
+  max-height: 74px;
   border-top-style: solid;
   border-top-width: 1px;
   border-top-color: rgba(0, 0, 0, 0.1);
@@ -61,6 +66,7 @@
 .login-signup-footer {
   margin-bottom: 0;
   height: 10vh;
+  max-height: 74px;
   border-top-style: solid;
   border-top-width: 1px;
   border-top-color: rgba(0, 0, 0, 0.3);
@@ -392,6 +398,7 @@ a {
 .user-component-container {
   width: 100%;
   height: 20vh;
+  max-height: 148px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: black;
@@ -462,6 +469,7 @@ a {
 
 .profile-header {
   height: 10vh;
+  max-height: 74px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: rgba(0, 0, 0, 0.3);
